@@ -1,0 +1,44 @@
+# Entorno virtual
+venv/
+*.env
+
+# Archivos de configuración sensibles
+config.py
+
+# Compilación y archivos temporales de Python
+__pycache__/
+*.py[cod]
+
+# Archivos de Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Logs y bases de datos
+*.log
+logs/
+*.sqlite3
+*.db
+
+# Archivos generados por el editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de Power BI
+/powerbi/*.pbix
+
+# Otros archivos comunes
+*.tar.gz
+*.zip
+*.rar
+*.7z
+.DS_Store
+Thumbs.db
+
+# Docker temporales y volúmenes
+**/.docker
+*.pid
+*.sock
+
+# Docker-compose override (opcional)
+docker-compose.override.yml

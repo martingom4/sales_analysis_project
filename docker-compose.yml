@@ -1,0 +1,49 @@
+version: '3.8'  # Usa una versión reciente para compatibilidad
+
+services:
+  web:
+    build: .
+    container_name: sales_analysis_web  # Nombre del contenedor para identificarlo fácilmente
+    ports:
+      - "5000:5000"  # Mapea el puerto 5000 del contenedor al 5000 del host
+    volumes:
+      - .:/app  # Monta el directorio actual en el contenedor para desarrollo
+      - /app/venv  # Excluye el entorno virtual de tu host
+    environment:
+      - FLASK_ENV=development  # Cambia a 'production' para producción
+      - FLASK_APP=app.py  # Archivo principal de tu aplicación Flask
+      - DATABASE_URL=postgresql://myuser:mypassword@db:5432/salesdb  # URL de la base de datos
+    depends_on:
+      - db  # Asegura que la base de datos se inicie antes que la aplicación web
+    networks:
+      - app_network  # Red compartida con otros servicios
+
+  db:
+    image: postgres:13  # Usa la imagen oficial de PostgreSQL
+    container_name: sales_analysis_db  # Nombre del contenedor para la base de datos
+    environment:
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=salesdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Volumen para la persistencia de datos
+    networks:
+      - app_network  # Red compartida con otros servicios
+
+  adminer:  # Herramienta de administración de base de datos (opcional)
+    image: adminer  # Usa la imagen oficial de Adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"  # Adminer estará disponible en http://localhost:8080
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+networks:
+  app_network:  # Define la red personalizada para que los contenedores puedan comunicarse
+    driver: bridge
+
+volumes:
+  postgres_data:  # Volumen para almacenar los datos de PostgreSQL
