@@ -1,4 +1,4 @@
-# Entorno virtual
+# Entorno virtual de Python
 venv/
 *.env
 
@@ -42,3 +42,18 @@ Thumbs.db
 
 # Docker-compose override (opcional)
 docker-compose.override.yml
+
+# Archivos RPM y temporales de Fedora
+*.rpm
+*.bak
+*.tmp
+*.swp
+
+# Archivos temporales de sistema
+/tmp
+*~
+
+# Archivos de compilación y empaquetado de Python
+*.egg-info/
+dist/
+build/
