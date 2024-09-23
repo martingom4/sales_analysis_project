@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.GHCR_PAT }}
 
       - name: Build and push Docker image
-        id: build  # Agrega un id para que el `digest` funcione correctamente
+        id: build  # Asegúrate de que el id sea 'build' para que funcione
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -32,4 +32,5 @@ jobs:
           tags: ghcr.io/martingom4/sales_analysis_project:latest
 
       - name: Image digest
-        run: echo "Image digest: ${{ steps.build.outputs.digest }}"
+        run: |
+          echo "Image digest: ${{ steps.build.outputs.digest }}"
